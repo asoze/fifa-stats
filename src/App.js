@@ -1,5 +1,6 @@
 import React from 'react';
-import MatchTable from './components/MatchTable';
+// import MatchTable from './components/MatchTable';
+import MatchTable2 from './components/MatchTable2';
 
 import './App.css';
 
@@ -11,7 +12,7 @@ function App() {
       </header>
       <section className="game-stats">
           <h1>Game stuff</h1>
-          <MatchTable />
+          <MatchTable2 />
       </section>
     </div>
   );

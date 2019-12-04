@@ -1,5 +1,6 @@
 import React from 'react';
 import {fetches} from '../data/fetches';
+import moment from 'moment';
 
 class MatchTable extends React.Component {
     
@@ -19,6 +20,7 @@ class MatchTable extends React.Component {
                     <th>Home Team</th>
                     <th>Away Team</th>
                     <th>Score</th>
+                    <th>Match Date</th>
                     <th>Match Time</th>
                 </tr>
             </thead>
@@ -27,7 +29,6 @@ class MatchTable extends React.Component {
 
     getMatches() {
         if ( this.state.matches && this.state.matches.length > 0 ) {
-            console.log("GOOD!");
             return this.state.matches;
         }
         
@@ -46,48 +47,25 @@ class MatchTable extends React.Component {
                     return eachMatch;
                 });
                 
-                console.log("MAtches rEady", fullMatches);
-                
                 this.setState({
                     matches: fullMatches
                 });
             })
-
-        // const matches = fetches.getMatches()
-        //     .then( (matches) => {
-        //         fetches.getTeams().then( (teams) => {
-        // 
-        // 
-        // 
-        // 
-        // 
-        //             const fullMatchData = matches.data;
-        //             const teamData = teams.data;
-        //             console.log("TEAM 1", fullMatchData.team1_id);
-        // 
-        //             fullMatchData.home_team = teamData[fullMatchData.team1_id];
-        //             fullMatchData.away_team = teamData[fullMatchData.team2_id];
-        // 
-        //             console.log("DULL@2", fullMatchData);
-        //             return fullMatchData;
-        //         });
-        // 
-        //         // return matchCollection.map( (eachMatch, idx) => {
-        //         //     return this.formatMatchRow( eachMatch, idx );
-        //         // })
-        //     });
     }
 
     formatMatchRow( match, idx ) {
         const keyString = `match_${idx}`;
-        console.log("MATCH", match);
+        const matchPlayAt = moment( match.play_at ); // 2014-06-12 17:00:00.000000
+        const matchDate = matchPlayAt.format('MMM Do');
+        const matchTime = matchPlayAt.format('h:mm a');
         return (
             <tr key={keyString}>
                 <td>{ match.round_id }</td>
                 <td>{ match.team1.title }</td>
                 <td>{ match.team2.title }</td>
                 <td>{ `${ match.score1 } - ${ match.score2 }` }</td>
-                    <td>{ match.play_at }</td>
+                <td>{ matchDate }</td>
+                <td>{ matchTime }</td>
             </tr>
         )
     }
