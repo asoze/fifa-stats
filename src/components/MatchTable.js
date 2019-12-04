@@ -3,13 +3,17 @@ import {fetches} from '../data/fetches';
 import moment from 'moment';
 
 class MatchTable extends React.Component {
-    
+
     constructor(props) {
         super(props);
-        
+
         this.state = {
             matches: []
         }
+    }
+
+    componentDidMount() {
+        this.initializeMatches();
     }
 
     getTableHeaders() {
@@ -27,26 +31,24 @@ class MatchTable extends React.Component {
         );
     }
 
-    getMatches() {
-        if ( this.state.matches && this.state.matches.length > 0 ) {
-            return this.state.matches;
-        }
-        
+    initializeMatches() {
+        if ( this.state.matches && this.state.matches.length > 0 ) return this.state.matches;
+
         const matches = fetches.getMatches();
         const teams = fetches.getTeams();
-        
+
         Promise.all( [matches, teams] )
             .then( (values) => {
                 const matches = values[0].data;
                 const teams = values[1].data;
-                
+
                 const fullMatches = matches.map( (eachMatch) => {
                     eachMatch.team1 = teams[ eachMatch.team1_id-1 ];
                     eachMatch.team2 = teams[ eachMatch.team2_id-1 ];
-                    
+
                     return eachMatch;
                 });
-                
+
                 this.setState({
                     matches: fullMatches
                 });
@@ -71,19 +73,19 @@ class MatchTable extends React.Component {
     }
 
     getTableBody() {
-        const matches = this.getMatches();
+        const matches = this.state.matches;
         if ( matches ) {
             const renderedRows = matches.map( (eachMatch, idx) => {
                 return this.formatMatchRow( eachMatch, idx );
             })
-            
+
             return (
                 <tbody>
                     { renderedRows }
                 </tbody>
             )
         };
-        
+
         return (
             <tbody>
                 <tr><td colSpan='5'>Loading...</td></tr>

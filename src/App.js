@@ -2,6 +2,7 @@ import React from 'react';
 // import MatchTable from './components/MatchTable';
 import MatchTable from './components/MatchTable';
 import PersonTable from './components/PersonTable';
+import GoalTable from './components/GoalTable';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import 'react-tabs/style/react-tabs.css';
@@ -18,8 +19,9 @@ function App() {
             <TabList>
                 <Tab>Match</Tab>
                 <Tab>Person</Tab>
+                <Tab>Goal</Tab>
             </TabList>
-            
+
             <TabPanel>
                 <h2>Matches</h2>
                 <MatchTable />
@@ -27,6 +29,10 @@ function App() {
             <TabPanel>
                 <h2>People</h2>
                 <PersonTable />
+            </TabPanel>
+            <TabPanel>
+                <h2>Goals</h2>
+                <GoalTable />
             </TabPanel>
           </Tabs>
       </section>
