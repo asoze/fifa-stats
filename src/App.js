@@ -1,7 +1,10 @@
 import React from 'react';
 // import MatchTable from './components/MatchTable';
-import MatchTable2 from './components/MatchTable2';
+import MatchTable from './components/MatchTable';
+import PersonTable from './components/PersonTable';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
+import 'react-tabs/style/react-tabs.css';
 import './App.css';
 
 function App() {
@@ -11,8 +14,21 @@ function App() {
         FIFA Stats
       </header>
       <section className="game-stats">
-          <h1>Game stuff</h1>
-          <MatchTable2 />
+          <Tabs>
+            <TabList>
+                <Tab>Match</Tab>
+                <Tab>Person</Tab>
+            </TabList>
+            
+            <TabPanel>
+                <h2>Matches</h2>
+                <MatchTable />
+            </TabPanel>
+            <TabPanel>
+                <h2>People</h2>
+                <PersonTable />
+            </TabPanel>
+          </Tabs>
       </section>
     </div>
   );
