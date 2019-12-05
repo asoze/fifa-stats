@@ -3,6 +3,7 @@ import React from 'react';
 import MatchTable from './components/MatchTable';
 import PersonTable from './components/PersonTable';
 import GoalTable from './components/GoalTable';
+import FifaBoundary from './components/common/FifaBoundary';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import 'react-tabs/style/react-tabs.css';
@@ -24,15 +25,21 @@ function App() {
 
             <TabPanel>
                 <h2>Matches</h2>
-                <MatchTable />
+                <FifaBoundary>
+                    <MatchTable />
+                </FifaBoundary>
             </TabPanel>
             <TabPanel>
                 <h2>People</h2>
-                <PersonTable />
+                <FifaBoundary>
+                    <PersonTable />
+                </FifaBoundary>
             </TabPanel>
             <TabPanel>
                 <h2>Goals</h2>
-                <GoalTable />
+                <FifaBoundary>
+                    <GoalTable />
+                </FifaBoundary>
             </TabPanel>
           </Tabs>
       </section>
