@@ -8,27 +8,54 @@ class MatchTable extends React.Component {
         super(props);
 
         this.state = {
-            matches: []
+            matches: [],
+            sortOrder: 'round'
         }
+        this.changeSortOrder = this.changeSortOrder.bind(this);
+        this.compare = this.compare.bind(this);
     }
 
     componentDidMount() {
         this.initializeMatches();
     }
 
+    changeSortOrder( evt ) {
+        const sortBy = evt.target.id;
+        this.setState( {
+            sortOrder: sortBy
+        })
+    }
+
     getTableHeaders() {
         return (
             <thead>
                 <tr>
-                    <th>Round</th>
-                    <th>Home Team</th>
-                    <th>Away Team</th>
-                    <th>Score</th>
-                    <th>Match Date</th>
-                    <th>Match Time</th>
+                    <th id='round' onClick={this.changeSortOrder}>Round</th>
+                    <th id='team1' onClick={this.changeSortOrder}>Home Team</th>
+                    <th id='team2' onClick={this.changeSortOrder}>Away Team</th>
+                    <th id='score' onClick={this.changeSortOrder}>Score</th>
+                    <th id='matchDate' onClick={this.changeSortOrder}>Match Date</th>
+                    <th id='matchTime' onClick={this.changeSortOrder}>Match Time</th>
                 </tr>
             </thead>
         );
+    }
+
+    getSortTerm( sortBy, field ) {
+        // There's so many better ways to do this...
+        if ( sortBy === 'team1' ) {
+            return field.team1.title;
+        } else if ( sortBy === 'team2' ) {
+            return field.team2.title;
+        } else if ( (sortBy === 'matchDate') || (sortBy === 'matchTime') ) {
+            // Could separate out the date and time with moment, but I don't feel like it right now
+            const matchDay = moment(field.play_at);
+            return matchDay.toDate();
+        } else if ( sortBy === 'score' ) {
+            return field.score1;
+        }
+
+        return field;
     }
 
     initializeMatches() {
@@ -72,9 +99,28 @@ class MatchTable extends React.Component {
         )
     }
 
+    compare(a, b) {
+        const sortBy = this.state.sortOrder;
+        let sortA = '';
+        let sortB = '';
+
+        if ( sortBy ) {
+            sortA = this.getSortTerm(sortBy, a);
+            sortB = this.getSortTerm(sortBy, b);
+        }
+
+        if (sortA > sortB) return 1;
+        else if ( sortB > sortA ) return -1;
+        else return 0;
+    }
+
     getTableBody() {
         const matches = this.state.matches;
+
         if ( matches ) {
+            if( this.state.sortOrder ) {
+                matches.sort(this.compare );
+            }
             const renderedRows = matches.map( (eachMatch, idx) => {
                 return this.formatMatchRow( eachMatch, idx );
             })
