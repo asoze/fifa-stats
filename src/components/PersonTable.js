@@ -35,7 +35,7 @@ class PersonTable extends React.Component {
         });
 
         return (
-            <table>
+            <table className='personTable'>
                 <thead>
                     <tr>
                         <th>ID</th>

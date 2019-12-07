@@ -23,3 +23,26 @@
 .fifa-app {
 
 }
+
+thead th {
+    padding: 5px 10px;
+    border-radius: 10px 10px 0px 0;
+    cursor: pointer;
+    background-color: #ddd;
+    border-bottom: solid 2px #333;
+}
+
+.matchTable th {
+    background-color: #88c7a5;
+    border-bottom: solid 2px #6a4;
+}
+
+.personTable th {
+    background-color: #51a8c4;
+    border-bottom: solid 2px #5ac;
+}
+
+.goalTable th {
+    background-color: #a5cc73;
+    border-bottom: solid 2px #ac7;
+}

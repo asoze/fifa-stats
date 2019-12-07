@@ -141,7 +141,7 @@ class MatchTable extends React.Component {
 
     render() {
         return (
-            <table>
+            <table className='matchTable'>
                 { this.getTableHeaders() }
                 { this.getTableBody() }
             </table>

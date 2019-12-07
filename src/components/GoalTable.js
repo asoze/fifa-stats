@@ -54,7 +54,7 @@ class GoalTable extends React.Component {
         });
 
         return (
-            <table>
+            <table className="goalTable">
                 <thead>
                     <tr>
                         <th>Team ID</th>
