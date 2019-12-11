@@ -2,6 +2,11 @@ import React from 'react';
 import {fetches} from '../data/fetches';
 import moment from 'moment';
 
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
+import {initDataAction} from '../actions/actions';
+
 class MatchTable extends React.Component {
 
     constructor(props) {
@@ -17,6 +22,8 @@ class MatchTable extends React.Component {
 
     componentDidMount() {
         this.initializeMatches();
+        const something = 'xxx';
+        this.props.initDataAction(something);
     }
 
     changeSortOrder( evt ) {
@@ -149,4 +156,16 @@ class MatchTable extends React.Component {
     }
 }
 
-export default MatchTable;
+const mapStateToProps = (state) => {
+    const xxx = '11111';
+    return {
+        prop1: state.propOne,
+        prop2: xxx
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({initDataAction}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MatchTable);
